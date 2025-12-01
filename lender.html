@@ -1,91 +1,612 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Become a Lender | CrediLink</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Lender - Loan Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -200px;
+            left: -200px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -150px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: slideDown 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+            animation: slideUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: linear-gradient(to bottom, #f8f9ff, #ffffff);
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #333;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .benefit-card:nth-child(1) { animation-delay: 0.1s; }
+        .benefit-card:nth-child(2) { animation-delay: 0.2s; }
+        .benefit-card:nth-child(3) { animation-delay: 0.3s; }
+        .benefit-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .benefit-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Eligibility Section */
+        .eligibility {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            padding: 80px 20px;
+        }
+
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .eligibility-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .eligibility-card:nth-child(1) { animation-delay: 0.1s; }
+        .eligibility-card:nth-child(2) { animation-delay: 0.2s; }
+        .eligibility-card:nth-child(3) { animation-delay: 0.3s; }
+        .eligibility-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .eligibility-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .eligibility-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .eligibility-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .eligibility-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: #00008b;
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+            opacity: 0.1;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #333;
+            position: relative;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.5s ease-out;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        /* Trust Section */
+        .trust {
+            background: #f8f9ff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .trust h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .trust p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="page-header">
-    <img src="images/WhatsApp Image 2025-11-12 at 7.13.13 AM.jpeg" alt="logo" width="10%" height="10%" />
-    <nav>
-      <a href="Project(grp).html">Home</a>
-      <a href="schemes.html">Schemes</a>
-      <a href="lender.html" class="active">Lend</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="Myloans.html">My Loans</a>
-      <a href="contact.html">Contact Us</a>
-    </nav>
-    <div class="buttons">
-      <a href="login.html"><button class="login">Login</button></a>
-      <button class="signup">Signup</button>
-    </div>
-  </header>
-
-  <main class="main">
-    <section class="intro-section">
-      <h1>Partner with CrediLink as a Lender</h1>
-      <p>Join our trusted network of lenders and help empower students, professionals, and entrepreneurs across India.</p>
-      <img src="images/lender-banner.jpeg" alt="Lender Partnership" width="100%" />
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Become a Lender Today</h1>
+        <p>Earn competitive returns while helping others achieve their financial goals</p>
     </section>
 
-    <section class="benefits-section">
-      <h2>Why Lend with Us?</h2>
-      <div class="benefit-cards">
-        <div class="benefit-card">
-          <h3>📊 Transparent Risk Assessment</h3>
-          <p>Access borrower profiles with verified documents, credit scores, and repayment history.</p>
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Why Lend With Us?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3>High Returns</h3>
+                    <p>Earn 8-12% annual returns on your investments with verified borrowers</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Secure Platform</h3>
+                    <p>Bank-level security and encryption to protect your investments</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h3>Diverse Portfolio</h3>
+                    <p>Spread your risk across multiple verified borrowers</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Flexible Terms</h3>
+                    <p>Choose your own lending terms and investment duration</p>
+                </div>
+            </div>
         </div>
-        <div class="benefit-card">
-          <h3>💸 Flexible Investment Options</h3>
-          <p>Choose loan categories, amounts, and interest rates that suit your lending strategy.</p>
-        </div>
-        <div class="benefit-card">
-          <h3>🔒 Secure Transactions</h3>
-          <p>All payments and repayments are digitally tracked and encrypted for safety.</p>
-        </div>
-        <div class="benefit-card">
-          <h3>📈 Real-Time Dashboard</h3>
-          <p>Monitor your lending portfolio, returns, and borrower activity in one place.</p>
-        </div>
-      </div>
     </section>
 
-    <section class="registration-section">
-      <h2>Ready to Start Lending?</h2>
-      <p>Fill out the form below to register as a verified lender and start earning returns.</p>
-      <form class="lender-form">
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" required />
-
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required />
-
-        <label for="organization">Organization (if any):</label>
-        <input type="text" id="organization" name="organization" />
-
-        <label for="investment">Preferred Investment Amount:</label>
-        <select id="investment" name="investment">
-          <option value="50000">₹50,000</option>
-          <option value="100000">₹1,00,000</option>
-          <option value="500000">₹5,00,000</option>
-          <option value="1000000">₹10,00,000+</option>
-        </select>
-
-        <label for="loan-type">Loan Categories You're Interested In:</label>
-        <input type="text" id="loan-type" name="loan-type" placeholder="e.g., Education, Personal, Skill Development" />
-
-        <button type="submit">Register as Lender</button>
-      </form>
+    <!-- Eligibility Criteria Section -->
+    <section class="eligibility">
+        <div class="container">
+            <h2 class="section-title">Borrower Eligibility Criteria</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 50px;">We ensure all borrowers meet these requirements before approval</p>
+            <div class="eligibility-grid">
+                <div class="eligibility-card">
+                    <div class="eligibility-icon">📊</div>
+                    <h3>Credit Score</h3>
+                    <p>Minimum 650+ credit score required for loan approval</p>
+                </div>
+                <div class="eligibility-card">
+                    <div class="eligibility-icon">💼</div>
+                    <h3>Stable Income</h3>
+                    <p>Regular income proof for 6+ months from verified sources</p>
+                </div>
+                <div class="eligibility-card">
+                    <div class="eligibility-icon">🏠</div>
+                    <h3>Collateral</h3>
+                    <p>Property or asset documentation for secured loans</p>
+                </div>
+                <div class="eligibility-card">
+                    <div class="eligibility-icon">📄</div>
+                    <h3>Documents</h3>
+                    <p>Valid ID, address proof, and bank statements required</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="image-container">
-      <img src="images/WhatsApp Image 2025-11-12 at 7.13.12 AM.jpeg" alt="loan process" width="100%" />
-    </section>
-  </main>
+    <!-- Registration Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Start Lending Today</h2>
+                <p class="form-subtitle">Fill out the form below to create your lender account</p>
+                
+                <div class="success-message" id="successMessage">
+                    <span>✅</span>
+                    <span>Application submitted successfully! We'll contact you soon.</span>
+                </div>
 
-  <script src="script.js"></script>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="fullName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lending Amount *</label>
+                        <input type="number" id="amount" placeholder="$10,000" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preferred Duration</label>
+                        <select id="duration">
+                            <option value="">Select duration</option>
+                            <option value="6">6 months</option>
+                            <option value="12">12 months</option>
+                            <option value="24">24 months</option>
+                            <option value="36">36 months</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Interest Rate</label>
+                        <select id="interestRate">
+                            <option value="">Select rate</option>
+                            <option value="8">8% per annum</option>
+                            <option value="10">10% per annum</option>
+                            <option value="12">12% per annum</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitForm()">
+                    Create Lender Account →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <h3>Trusted by 10,000+ Lenders Worldwide</h3>
+            <p>Join our community of smart investors who are earning consistent returns while making a positive impact on people's lives</p>
+        </div>
+    </section>
+
+    <script>
+        function submitForm() {
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const amount = document.getElementById('amount').value;
+
+            if (!fullName || !email || !phone || !amount) {
+                alert('Please fill in all required fields!');
+                return;
+            }
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+
+            // Clear form
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('duration').value = '';
+            document.getElementById('interestRate').value = '';
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add smooth scroll effect
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
